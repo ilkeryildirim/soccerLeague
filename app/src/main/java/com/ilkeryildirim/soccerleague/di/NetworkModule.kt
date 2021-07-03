@@ -1,6 +1,6 @@
 package com.ilkeryildirim.soccerleague.di
 
-import com.ilkeryildirim.soccerleague.data.remote.SoccerLeagueApi
+import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApi
 import com.ilkeryildirim.soccerleague.util.ApiConstants
 import dagger.Module
 import dagger.Provides
