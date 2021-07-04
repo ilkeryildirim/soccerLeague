@@ -36,8 +36,8 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideOkhttpClient():OkHttpClient{
-        return  OkHttpClient().newBuilder().build()
+    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor):OkHttpClient{
+        return  OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor).build()
     }
 
     @Provides

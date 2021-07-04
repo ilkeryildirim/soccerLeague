@@ -5,49 +5,59 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApiResult
-import com.ilkeryildirim.soccerleague.data.remote.model.EmptyDataModel
+import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeDataRepository: HomeDataRepository
+        private val homeDataRepository: HomeDataRepository
 ) : ViewModel() {
 
 
     private val _uiState = MutableStateFlow<HomeFragmentUIState>(HomeFragmentUIState.Initial)
     val uiState: StateFlow<HomeFragmentUIState> = _uiState
-    private lateinit var teams: ArrayList<EmptyDataModel>
     var isLoading = MutableLiveData<Boolean>()
 
     fun onRefresh() {
         _uiState.value = HomeFragmentUIState.Loading
-        isLoading.value = true
-        getTeams()
+        getTeamsAndFixture()
     }
 
-    fun getTeams() {
-        isLoading.value = true
+    fun getTeamsAndFixture() {
         _uiState.value = HomeFragmentUIState.Loading
         viewModelScope.launch {
-            homeDataRepository.getTeams().let { result ->
-                when (result) {
-                    is SoccerLeagueApiResult.Success -> {
-                        isLoading.value = false
-                        _uiState.value = HomeFragmentUIState.Success(result.data)
-                    }
+
+            val flowA = flowOf(homeDataRepository.getTeams())
+            val flowB = flowOf(homeDataRepository.getTeams())
+            val zippedFlow = flowA.zip(flowB) { flowAResult, flowBResult ->
+                println("+++++++")
+                when (flowAResult) {
                     is SoccerLeagueApiResult.Error -> {
-                        result.message?.let {
-                            _uiState.value = HomeFragmentUIState.Error(result.message)
+                        flowAResult.message?.let { errorMessage ->
+                            _uiState.value = HomeFragmentUIState.Error(errorMessage)
                         }
+                    }
+                    is SoccerLeagueApiResult.Success -> {
+                        _uiState.value = HomeFragmentUIState.TeamsLoaded(flowAResult.data)
+                    }
+                }
+                when (flowBResult) {
+                    is SoccerLeagueApiResult.Error -> {
+                        flowBResult.message?.let { errorMessage ->
+                            _uiState.value = HomeFragmentUIState.Error(errorMessage)
+                        }
+                    }
+                    is SoccerLeagueApiResult.Success -> {
+                        _uiState.value = HomeFragmentUIState.TeamsLoaded(flowBResult.data)
                     }
                 }
             }
+            zippedFlow.collect()
         }
     }
 }
@@ -57,6 +67,7 @@ sealed class HomeFragmentUIState {
     object Initial : HomeFragmentUIState()
     object Loading : HomeFragmentUIState()
     data class Navigate(var destinationId: Int, var bundle: Bundle) : HomeFragmentUIState()
-    data class Success(var discoverData: ArrayList<EmptyDataModel>) : HomeFragmentUIState()
+    data class TeamsLoaded(var discoverData: Teams) : HomeFragmentUIState()
+    data class FixtureLoaded(var discoverData2: Teams) : HomeFragmentUIState()
     data class Error(val message: String) : HomeFragmentUIState()
 }

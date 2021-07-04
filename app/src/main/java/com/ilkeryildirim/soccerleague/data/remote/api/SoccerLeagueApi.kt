@@ -1,11 +1,12 @@
 package com.ilkeryildirim.soccerleague.data.remote.api
 
-import com.ilkeryildirim.soccerleague.data.remote.model.EmptyDataModel
+import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.util.ApiConstants
 import retrofit2.http.GET
 
 
 interface SoccerLeagueApi {
-    @GET("/teams")
-    suspend fun getTeams():ArrayList<EmptyDataModel>
+    @GET(ApiConstants.Endpoints.TEAMS)
+    suspend fun getTeams():Teams
 }
 

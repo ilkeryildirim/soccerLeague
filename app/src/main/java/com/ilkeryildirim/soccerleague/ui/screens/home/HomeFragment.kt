@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
 
 
@@ -37,6 +38,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getTeams()
         observeFragmentViewState()
         observeViewModel()
     }
@@ -50,8 +52,11 @@ class HomeFragment : Fragment() {
                     is HomeFragmentUIState.Initial ->{
                         hideContent()
                     }
-                    is HomeFragmentUIState.Success -> {
-                        showContent()
+                    is HomeFragmentUIState.TeamsLoaded -> {
+                        println("TEAM 1 ${state.discoverData.teams}")
+                    }
+                    is HomeFragmentUIState.FixtureLoaded -> {
+                        println("TEAM 2 ${state.discoverData2.teams}")
                     }
                     is HomeFragmentUIState.Error -> {
                         state.message.let(::showError)
@@ -66,8 +71,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
+    private fun getTeams(){
+        lifecycleScope.launchWhenCreated {
+            viewModel.getTeamsAndFixture()
+        }
+    }
 
     private fun showContent(){
      //   binding.lytContent.animate().alpha(1.0f)
@@ -76,7 +84,7 @@ class HomeFragment : Fragment() {
      //   binding.lytContent.animate().alpha(0.0f)
     }
     private fun showError(error: String) {
-   //     Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
     }
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {
