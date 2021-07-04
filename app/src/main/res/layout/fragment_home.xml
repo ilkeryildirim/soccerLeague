@@ -194,15 +194,10 @@
                         app:layout_constraintTop_toTopOf="parent">
                     </TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <TextView
-                    android:textColor="@color/color_gray"
-                    android:gravity="center"
-                    android:text="Leader Board"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </TextView>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rvLeaderBoard"
                     android:layout_margin="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

@@ -9,7 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
+import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
+import com.ilkeryildirim.soccerleague.ui.item.leaderboard.LeaderBoardAdapter
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +26,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private var leaderBoardAdapter: LeaderBoardAdapter? = null
 
 
     override fun onCreateView(
@@ -38,7 +42,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getTeams()
+        getTeamsAndFixture()
         observeFragmentViewState()
         observeViewModel()
     }
@@ -49,11 +53,15 @@ class HomeFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
-                    is HomeFragmentUIState.Initial ->{
+                    is HomeFragmentUIState.Initial -> {
                         hideContent()
                     }
                     is HomeFragmentUIState.TeamsLoaded -> {
-                        println("TEAM 1 ${state.discoverData.teams}")
+                        state.teams.teams?.let { teamList ->
+                            initLeaderBoard(teamList.sortedByDescending { team ->
+                                team.leagueScore!!.toInt()
+                            }.subList(0,3))
+                        }
                     }
                     is HomeFragmentUIState.FixtureLoaded -> {
                         println("TEAM 2 ${state.discoverData2.teams}")
@@ -71,18 +79,32 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getTeams(){
+    private fun getTeamsAndFixture() {
         lifecycleScope.launchWhenCreated {
             viewModel.getTeamsAndFixture()
         }
     }
 
-    private fun showContent(){
-     //   binding.lytContent.animate().alpha(1.0f)
+    private fun initLeaderBoard(list: List<Team>) {
+        binding.rvLeaderBoard.apply {
+            leaderBoardAdapter?.let { viewAdapter ->
+                viewAdapter.teams = list
+                viewAdapter.notifyDataSetChanged()
+            }.run {
+                leaderBoardAdapter = LeaderBoardAdapter(list) {}
+            }
+            adapter = leaderBoardAdapter
+        }
     }
-    private fun hideContent(){
-     //   binding.lytContent.animate().alpha(0.0f)
+
+    private fun showContent() {
+        //   binding.lytContent.animate().alpha(1.0f)
     }
+
+    private fun hideContent() {
+        //   binding.lytContent.animate().alpha(0.0f)
+    }
+
     private fun showError(error: String) {
         Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
     }

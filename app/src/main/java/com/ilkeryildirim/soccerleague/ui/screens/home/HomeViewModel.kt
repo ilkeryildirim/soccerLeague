@@ -67,7 +67,7 @@ sealed class HomeFragmentUIState {
     object Initial : HomeFragmentUIState()
     object Loading : HomeFragmentUIState()
     data class Navigate(var destinationId: Int, var bundle: Bundle) : HomeFragmentUIState()
-    data class TeamsLoaded(var discoverData: Teams) : HomeFragmentUIState()
+    data class TeamsLoaded(var teams: Teams) : HomeFragmentUIState()
     data class FixtureLoaded(var discoverData2: Teams) : HomeFragmentUIState()
     data class Error(val message: String) : HomeFragmentUIState()
 }
