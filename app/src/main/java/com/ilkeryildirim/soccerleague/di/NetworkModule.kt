@@ -1,6 +1,6 @@
 package com.ilkeryildirim.soccerleague.di
 
-import com.ilkeryildirim.soccerleague.data.remote.SoccerLeagueApi
+import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApi
 import com.ilkeryildirim.soccerleague.util.ApiConstants
 import dagger.Module
 import dagger.Provides
@@ -36,8 +36,8 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideOkhttpClient():OkHttpClient{
-        return  OkHttpClient().newBuilder().build()
+    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor):OkHttpClient{
+        return  OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor).build()
     }
 
     @Provides
