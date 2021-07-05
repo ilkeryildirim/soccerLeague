@@ -10,9 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
-import com.ilkeryildirim.soccerleague.ui.item.leaderboard.LeaderBoardAdapter
+import com.ilkeryildirim.soccerleague.ui.screens.home.items.LeaderBoardAdapter
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,7 +72,11 @@ class HomeFragment : Fragment() {
                     is HomeFragmentUIState.Loading -> {
                         hideContent()
                     }
-                    else -> Unit
+                    is HomeFragmentUIState.Navigate ->{
+                        state.apply {
+                            navigate(destinationId,bundle)
+                        }
+                    }
                 }
             }
         }

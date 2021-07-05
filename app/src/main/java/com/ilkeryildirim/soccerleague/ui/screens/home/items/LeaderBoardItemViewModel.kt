@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.item.leaderboard
+package com.ilkeryildirim.soccerleague.ui.screens.home.items
 
 
 import androidx.lifecycle.MutableLiveData

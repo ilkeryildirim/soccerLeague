@@ -18,5 +18,14 @@
         tools:layout="@layout/fragment_home"
         android:id="@+id/homeFragment"
         android:name="com.ilkeryildirim.soccerleague.ui.screens.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_fixtureFragment"
+            app:destination="@id/fixtureFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_fixture"
+        android:id="@+id/fixtureFragment"
+        android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragment"
+        android:label="FixtureFragment" />
 </navigation>

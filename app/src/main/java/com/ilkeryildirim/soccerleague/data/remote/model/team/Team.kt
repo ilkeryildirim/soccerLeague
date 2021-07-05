@@ -1,8 +1,11 @@
 package com.ilkeryildirim.soccerleague.data.remote.model.team
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Team(
     @SerializedName("goals_conceded")
     var goalsConceded: String?,
@@ -22,4 +25,4 @@ data class Team(
     var matchesWon: String?,
     @SerializedName("name")
     var name: String?
-)
+): Parcelable
