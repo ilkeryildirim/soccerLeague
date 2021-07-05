@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.ilkeryildirim.soccerleague.databinding.ActivityMainBinding
+import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Hawk.init(binding.root.context)
         navController = findNavController(R.id.hostFragment)
     }
 

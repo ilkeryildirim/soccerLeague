@@ -102,4 +102,6 @@ dependencies {
     //Multidex
     implementation "androidx.multidex:multidex:$multidex_version"
 
+    implementation "com.orhanobut:hawk:2.0.1"
+
 }

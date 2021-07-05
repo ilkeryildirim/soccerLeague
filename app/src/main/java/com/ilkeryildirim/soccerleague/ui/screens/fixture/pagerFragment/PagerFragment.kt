@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.screens.home
+package com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
+import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Week
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
-import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
+import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.databinding.FragmentPagerBinding
+
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesItemAdapter
 import com.ilkeryildirim.soccerleague.ui.screens.home.items.LeaderBoardAdapter
 import com.orhanobut.hawk.Hawk
 
@@ -20,21 +25,19 @@ import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class PagerFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by viewModels()
-
-    private var _binding: FragmentHomeBinding? = null
+    private val viewModel: PagerFragmentViewModel by viewModels()
+    private var _binding: FragmentPagerBinding? = null
     private val binding get() = _binding!!
-    private var leaderBoardAdapter: LeaderBoardAdapter? = null
-
+    var weeklyMatchesAdapter: WeeklyMatchesItemAdapter? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPagerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
@@ -42,65 +45,62 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getTeamsAndFixture()
         observeFragmentViewState()
         observeViewModel()
+        getFixture()
     }
 
     private fun observeViewModel() {}
+
+    private fun getFixture() {
+        lifecycleScope.launchWhenCreated {
+            var week : Week?=null
+            var teams: Teams?=null
+
+           teams = Hawk.get<Teams>("Teams")
+           week = Hawk.get<Fixture>("Fixture").week?.get(0)
+            if((week == null&&teams==null).not()){
+                initWeekFixture(week!!,teams!!)
+            }
+        }
+
+    }
 
     private fun observeFragmentViewState() {
         lifecycleScope.launchWhenCreated {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
-                    is HomeFragmentUIState.Initial -> {
+                    is PagerFragmentUIState.Initial -> {
                         hideContent()
                     }
-                    is HomeFragmentUIState.TeamsLoaded -> {
-
-                        state.teams.teams?.let { teamList ->
-                            initLeaderBoard(teamList.sortedByDescending { team ->
-                                team.leagueScore?.toInt()
-                            }.subList(0,3))
-                        }
-                    }
-                    is HomeFragmentUIState.FixtureLoaded -> {
-                        println("TEAM 2 ${state.discoverData2.week}")
-                    }
-                    is HomeFragmentUIState.Error -> {
+                    is PagerFragmentUIState.Error -> {
                         state.message.let(::showError)
-                        //or show error page
                     }
-                    is HomeFragmentUIState.Loading -> {
+                    is PagerFragmentUIState.Loading -> {
                         hideContent()
                     }
-                    is HomeFragmentUIState.Navigate ->{
-                        state.apply {
-                            navigate(destinationId,bundle)
-                        }
-                    }
+                    else -> Unit
                 }
             }
         }
     }
 
-    private fun getTeamsAndFixture() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.getTeamsAndFixture()
+
+    private fun initWeekFixture(week: Week,teams: Teams) {
+        binding.rvWeeklyMatches.apply {
+            weeklyMatchesAdapter?.let { viewAdapter ->
+                println("++ $week")
+                println("++ $teams")
+                viewAdapter.week = week
+                viewAdapter.teams = teams
+                viewAdapter.notifyDataSetChanged()
+            }.run {
+                weeklyMatchesAdapter = WeeklyMatchesItemAdapter(week,teams) {}
+            }
+            adapter = weeklyMatchesAdapter!!
         }
     }
 
-    private fun initLeaderBoard(list: List<Team>) {
-        binding.rvLeaderBoard.apply {
-            leaderBoardAdapter?.let { viewAdapter ->
-                viewAdapter.teams = list
-                viewAdapter.notifyDataSetChanged()
-            }.run {
-                leaderBoardAdapter = LeaderBoardAdapter(list) {}
-            }
-            adapter = leaderBoardAdapter
-        }
-    }
 
     private fun showContent() {
         //   binding.lytContent.animate().alpha(1.0f)
@@ -116,8 +116,8 @@ class HomeFragment : Fragment() {
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {
         findNavController().navigate(
-                destinationId,
-                bundle
+            destinationId,
+            bundle
         )
     }
 

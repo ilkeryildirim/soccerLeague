@@ -1,14 +1,14 @@
 package com.ilkeryildirim.soccerleague.ui.screens.home
 
 import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilkeryildirim.soccerleague.R
 import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApiResult
+import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
+import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -24,6 +24,7 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<HomeFragmentUIState>(HomeFragmentUIState.Initial)
     val uiState: StateFlow<HomeFragmentUIState> = _uiState
     private var teams:Teams?=null
+    private var fixture:Fixture?=null
 
     fun onRefresh() {
         _uiState.value = HomeFragmentUIState.Loading
@@ -32,43 +33,43 @@ class HomeViewModel @Inject constructor(
 
     fun onFixtureFragmentDestination() {
 
-        val bundle = Bundle()
-        bundle.putParcelable("Teams",teams)
-        _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_fixtureFragment, bundle)
-
+        _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_fixtureFragment, Bundle.EMPTY)
+        Hawk.put("Teams",teams)
+        Hawk.put("Fixture",fixture)
     }
 
     fun getTeamsAndFixture() {
         _uiState.value = HomeFragmentUIState.Loading
         viewModelScope.launch {
 
-            val flowA = flowOf(homeDataRepository.getTeams())
-            val flowB = flowOf(homeDataRepository.getTeams())
-            val zippedFlow = flowA.zip(flowB) { flowAResult, flowBResult ->
-                println("+++++++")
-                when (flowAResult) {
+            val teamsFlow = flowOf(homeDataRepository.getTeams())
+            val fixtureFlow = flowOf(homeDataRepository.getFixture())
+            val zippedFlow = teamsFlow.zip(fixtureFlow) { teamsFlowResult, fixtureFlowResult ->
+                when (teamsFlowResult) {
                     is SoccerLeagueApiResult.Error -> {
-                        flowAResult.message?.let { errorMessage ->
+                        teamsFlowResult.message?.let { errorMessage ->
                             _uiState.value = HomeFragmentUIState.Error(errorMessage)
                         }
                     }
                     is SoccerLeagueApiResult.Success -> {
-                        teams = flowAResult.data
-                        _uiState.value = HomeFragmentUIState.TeamsLoaded(flowAResult.data)
+                        teams = teamsFlowResult.data
+                        _uiState.value = HomeFragmentUIState.TeamsLoaded(teamsFlowResult.data)
                     }
                 }
-                when (flowBResult) {
+                when (fixtureFlowResult) {
                     is SoccerLeagueApiResult.Error -> {
-                        flowBResult.message?.let { errorMessage ->
+                        fixtureFlowResult.message?.let { errorMessage ->
                             _uiState.value = HomeFragmentUIState.Error(errorMessage)
                         }
                     }
                     is SoccerLeagueApiResult.Success -> {
-                        _uiState.value = HomeFragmentUIState.TeamsLoaded(flowBResult.data)
+                        fixture = fixtureFlowResult.data
+                        _uiState.value = HomeFragmentUIState.FixtureLoaded(fixtureFlowResult.data)
                     }
                 }
             }
             zippedFlow.collect()
+
         }
     }
 }
@@ -81,6 +82,6 @@ sealed class HomeFragmentUIState {
     object Loading : HomeFragmentUIState()
     data class Navigate(var destinationId: Int, var bundle: Bundle) : HomeFragmentUIState()
     data class TeamsLoaded(var teams: Teams) : HomeFragmentUIState()
-    data class FixtureLoaded(var discoverData2: Teams) : HomeFragmentUIState()
+    data class FixtureLoaded(var discoverData2: Fixture) : HomeFragmentUIState()
     data class Error(val message: String) : HomeFragmentUIState()
 }

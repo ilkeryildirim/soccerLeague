@@ -9,11 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
+import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentFixtureBinding
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.FixtureSliderViewPager
-import com.ilkeryildirim.soccerleague.ui.screens.home.items.ViewPagerTransformer
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerAdapter
+import com.orhanobut.hawk.Hawk
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +27,12 @@ class FixtureFragment : Fragment() {
     private val viewModel: FixtureViewModel by viewModels()
     private var _binding: FragmentFixtureBinding? = null
     private val binding get() = _binding!!
-    var fixtureAdapter: FixtureSliderViewPager? = null
+    var fixtureAdapter: ViewPagerAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFixtureBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -41,70 +42,65 @@ class FixtureFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        createFixture()
         observeFragmentViewState()
         observeViewModel()
-        getFixture()
+
     }
 
     private fun observeViewModel() {}
 
-    private fun getFixture() {
+    fun createFixture() {
+        fixtureAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         lifecycleScope.launchWhenCreated {
-            arguments?.getParcelable<Teams>("Teams")?.let { teams ->
-                initFixtures(teams)
+            var fixture: Fixture? = null
+            fixture = Hawk.get<Fixture>("Fixture")
+
+            fixture?.week?.forEach {
+
+                fixtureAdapter!!.addFragment(PagerFragment())
             }
         }
+        binding.viewPager.adapter = fixtureAdapter
     }
 
-    private fun observeFragmentViewState() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.uiState.collectLatest { state ->
-                when (state) {
-                    is FixtureFragmentUIState.Initial -> {
-                        hideContent()
-                    }
-                    is FixtureFragmentUIState.Error -> {
-                        state.message.let(::showError)
-                    }
-                    is FixtureFragmentUIState.Loading -> {
-                        hideContent()
-                    }
-                    else -> Unit
+
+private fun observeFragmentViewState() {
+    lifecycleScope.launchWhenCreated {
+        viewModel.uiState.collectLatest { state ->
+            when (state) {
+                is FixtureFragmentUIState.Initial -> {
+                    hideContent()
                 }
+                is FixtureFragmentUIState.Error -> {
+                    state.message.let(::showError)
+                }
+                is FixtureFragmentUIState.Loading -> {
+                    hideContent()
+                }
+                else -> Unit
             }
         }
     }
+}
 
-    private fun initFixtures(featured: Teams) {
-        binding.viewPagerFixture.apply {
-            fixtureAdapter?.let { viewPager ->
-                viewPager.featureds = featured.teams!!
-                viewPager.notifyDataSetChanged()
-            }.run {
-                fixtureAdapter = FixtureSliderViewPager(requireContext(), featured.teams!!)
-            }
-            binding.viewPagerFixture.setPageTransformer(true, ViewPagerTransformer())
-            adapter = fixtureAdapter
-        }
-    }
+private fun showContent() {
+    //   binding.lytContent.animate().alpha(1.0f)
+}
 
-    private fun showContent() {
-        //   binding.lytContent.animate().alpha(1.0f)
-    }
+private fun hideContent() {
+    //   binding.lytContent.animate().alpha(0.0f)
+}
 
-    private fun hideContent() {
-        //   binding.lytContent.animate().alpha(0.0f)
-    }
+private fun showError(error: String) {
+    Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
+}
 
-    private fun showError(error: String) {
-        Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun navigate(destinationId: Int, bundle: Bundle?) {
-        findNavController().navigate(
+private fun navigate(destinationId: Int, bundle: Bundle?) {
+    findNavController().navigate(
             destinationId,
             bundle
-        )
-    }
+    )
+}
 
 }

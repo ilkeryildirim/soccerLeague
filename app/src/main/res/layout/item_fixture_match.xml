@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ilkeryildirim.soccerleague.ui.screens.fixture.items.FixtureSliderItemViewModel" />
+            type="com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesViewModel" />
     </data>
 
 
@@ -50,10 +50,11 @@
                     </ImageView>
 
                     <TextView
+
                         android:textColor="@color/color_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arsenal"
+                        android:text="@{viewModel.name}"
                         android:textSize="24sp">
 
                     </TextView>
