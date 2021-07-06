@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.data.remote.model.fixture
+package com.ilkeryildirim.soccerleague.data.model.fixture
 
 
 import android.os.Parcelable

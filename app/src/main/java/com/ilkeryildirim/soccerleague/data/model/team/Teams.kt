@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.data.remote.model.team
+package com.ilkeryildirim.soccerleague.data.model.team
 
 
 import android.os.Parcelable

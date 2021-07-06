@@ -1,20 +1,28 @@
-package com.ilkeryildirim.soccerleague.data.remote.model.team
+package com.ilkeryildirim.soccerleague.data.model.team
 
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity
 data class Team(
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     @SerializedName("goals_conceded")
     var goalsConceded: String?,
     @SerializedName("goals_scored")
     var goalsScored: String?,
     @SerializedName("id")
-    var id: String?,
-    @SerializedName("image")
-    var image: Image?,
+    var team_id: String?,
+    @SerializedName("teamImages")
+   var teamImages: TeamImages?,
     @SerializedName("matches_lose")
     var matchesLose: String?,
     @SerializedName("league_score")
@@ -25,4 +33,4 @@ data class Team(
     var matchesWon: String?,
     @SerializedName("name")
     var name: String?
-): Parcelable
+):Parcelable

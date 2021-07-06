@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
+import com.ilkeryildirim.soccerleague.data.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentFixtureBinding
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerAdapter
@@ -56,15 +56,20 @@ class FixtureFragment : Fragment() {
             var teams: Teams? = null
 
             arguments?.let {
+                /*
                 fixture = it["Fixture"] as Fixture?
                 teams = it["Teams"] as Teams
 
+                 */
+
             }
             fixture?.week?.forEach {
-                val bundle = Bundle()
+            /*    val bundle = Bundle()
                 bundle.putParcelable("Week",it)
                 bundle.putParcelable("Teams",teams)
                 fixtureAdapter!!.addFragmentWithBundle(PagerFragment(),bundle)
+
+             */
             }
         }
         binding.viewPager.setPageTransformer(ViewPagerTransformer())

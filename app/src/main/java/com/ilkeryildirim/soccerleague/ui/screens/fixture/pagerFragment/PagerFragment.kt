@@ -9,10 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
-import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Week
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.model.fixture.Week
+import com.ilkeryildirim.soccerleague.data.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentPagerBinding
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesItemAdapter
 

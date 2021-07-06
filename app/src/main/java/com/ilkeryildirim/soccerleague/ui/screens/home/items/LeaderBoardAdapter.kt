@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ilkeryildirim.soccerleague.R
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.ItemHomeLeaderboardBinding
 
 

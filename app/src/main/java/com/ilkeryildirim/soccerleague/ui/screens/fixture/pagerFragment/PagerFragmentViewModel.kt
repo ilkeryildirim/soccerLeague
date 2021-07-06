@@ -1,15 +1,10 @@
 package com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment
 
 import android.os.Bundle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApiResult
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

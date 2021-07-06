@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilkeryildirim.soccerleague.R
 import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApiResult
-import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
+import com.ilkeryildirim.soccerleague.data.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -25,6 +25,10 @@ class HomeViewModel @Inject constructor(
     private var teams:Teams?=null
     private var fixture:Fixture?=null
 
+    init {
+        getTeamsAndFixture()
+    }
+
     fun onRefresh() {
         _uiState.value = HomeFragmentUIState.Loading
         getTeamsAndFixture()
@@ -40,7 +44,6 @@ class HomeViewModel @Inject constructor(
     fun getTeamsAndFixture() {
         _uiState.value = HomeFragmentUIState.Loading
         viewModelScope.launch {
-
             val teamsFlow = flowOf(homeDataRepository.getTeams())
             val fixtureFlow = flowOf(homeDataRepository.getFixture())
             val zippedFlow = teamsFlow.zip(fixtureFlow) { teamsFlowResult, fixtureFlowResult ->

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
 import com.ilkeryildirim.soccerleague.ui.screens.home.items.LeaderBoardAdapter
 
@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getTeamsAndFixture()
         observeFragmentViewState()
         observeViewModel()
     }
@@ -80,12 +79,6 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-        }
-    }
-
-    private fun getTeamsAndFixture() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.getTeamsAndFixture()
         }
     }
 
