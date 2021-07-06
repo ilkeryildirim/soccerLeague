@@ -1,10 +1,8 @@
 package com.ilkeryildirim.soccerleague.data.local
 
 import androidx.room.*
-import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.fixture.Week
 import com.ilkeryildirim.soccerleague.data.model.team.Team
-import com.ilkeryildirim.soccerleague.data.model.team.Teams
 
 
 @Dao
@@ -14,7 +12,7 @@ interface SoccerLeagueDao {
     fun insertTeams(teams: List<Team>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFixture(weeks: List<Week>)
+    fun insertFixtureWeeks(weeks: List<Week?>)
 
     @Query("SELECT * FROM team")
     fun getTeams(): List<Team?>
@@ -26,6 +24,6 @@ interface SoccerLeagueDao {
     fun deleteTeams(teams: List<Team>)
 
     @Delete
-    fun deleteFixture(weeks: List<Week>)
+    fun deleteFixtureWeeks(weeks: List<Week>)
 
 }

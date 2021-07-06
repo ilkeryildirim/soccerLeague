@@ -18,13 +18,20 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context, typeConverter: TypeConverter): AppDatabase {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
             "app.db"
-        ).build()
+        ).addTypeConverter(typeConverter).build()
     }
+
+    @Provides
+   fun provideTypeConverter():TypeConverter{
+        return TypeConverter()
+    }
+
+
 
     @Provides
     fun provideSoccerLeagueDao(appDatabase: AppDatabase): SoccerLeagueDao {

@@ -10,9 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ilkeryildirim.soccerleague.data.model.fixture.Week
-import com.ilkeryildirim.soccerleague.data.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.FragmentPagerBinding
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesItemAdapter
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragmentUIState.*
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,46 +50,56 @@ class PagerFragment : Fragment() {
 
     private fun getFixture() {
         lifecycleScope.launchWhenCreated {
-            var week: Week? = null
-            var teams: Teams? = null
-            week = arguments?.get("Week") as Week?
-            teams = arguments?.get("Teams") as Teams?
 
-            initWeekFixture(week!!, teams!!)
         }
 
     }
 
     private fun observeFragmentViewState() {
         lifecycleScope.launchWhenCreated {
+            println(getWeekIndex())
+        }
+        lifecycleScope.launchWhenCreated {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
-                    is PagerFragmentUIState.Initial -> {
+                    is Initial, Loading -> {
                         hideContent()
                     }
-                    is PagerFragmentUIState.Error -> {
+                    is Error -> {
                         state.message.let(::showError)
                     }
-                    is PagerFragmentUIState.Loading -> {
-                        hideContent()
+                    is FixtureAndTeamsLoaded -> {
+                        with(state) {
+                            getWeekIndex()?.let {index->
+                                fixture[index]?.let { weeklyFixture->
+                                  initWeekFixture(weeklyFixture,teams)
+                                }
+                            }.run {
+                                //show an error occurred
+                            }
+
+                        }
                     }
-                    else -> Unit
                 }
             }
         }
     }
 
+    private fun getWeekIndex(): Int? {
+        return arguments?.getInt("Week_Index")
+    }
 
-    private fun initWeekFixture(week: Week,teams: Teams) {
+
+    private fun initWeekFixture(week: Week, teams: List<Team?>) {
         binding.rvWeeklyMatches.apply {
             weeklyMatchesAdapter?.let { viewAdapter ->
-                println("++ $week")
-                println("++ $teams")
                 viewAdapter.week = week
                 viewAdapter.teams = teams
                 viewAdapter.notifyDataSetChanged()
             }.run {
-                weeklyMatchesAdapter = WeeklyMatchesItemAdapter(week,teams) {}
+                println(week)
+                println(teams)
+                weeklyMatchesAdapter = WeeklyMatchesItemAdapter(week, teams) {}
             }
             adapter = weeklyMatchesAdapter!!
         }

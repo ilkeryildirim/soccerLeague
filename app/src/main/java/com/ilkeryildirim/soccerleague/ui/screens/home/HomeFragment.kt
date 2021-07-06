@@ -27,11 +27,10 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var leaderBoardAdapter: LeaderBoardAdapter? = null
 
-
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -55,15 +54,13 @@ class HomeFragment : Fragment() {
                         hideContent()
                     }
                     is HomeFragmentUIState.TeamsLoaded -> {
-
-                        state.teams.teams?.let { teamList ->
-                            initLeaderBoard(teamList.sortedByDescending { team ->
-                                team.leagueScore?.toInt()
-                            }.subList(0,3))
-                        }
+                        state.teams.teams?.let { allTeams -> getFilteredTeams(allTeams) }
+                            ?.let { filteredTeams ->
+                                initLeaderBoardAdapter(filteredTeams)
+                            }
                     }
                     is HomeFragmentUIState.FixtureLoaded -> {
-                        println("TEAM 2 ${state.discoverData2.week}")
+
                     }
                     is HomeFragmentUIState.Error -> {
                         state.message.let(::showError)
@@ -72,9 +69,9 @@ class HomeFragment : Fragment() {
                     is HomeFragmentUIState.Loading -> {
                         hideContent()
                     }
-                    is HomeFragmentUIState.Navigate ->{
+                    is HomeFragmentUIState.Navigate -> {
                         state.apply {
-                            navigate(destinationId,bundle)
+                            navigate(destinationId, bundle)
                         }
                     }
                 }
@@ -82,7 +79,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initLeaderBoard(list: List<Team>) {
+    private fun getFilteredTeams(allTeams: List<Team>): List<Team> {
+        val filteredTeams: List<Team>
+        allTeams.let { teamList ->
+            filteredTeams = teamList.sortedByDescending { team ->
+                team.league_score?.toInt()
+            }.subList(0, 3)
+        }
+        return filteredTeams
+    }
+
+    private fun initLeaderBoardAdapter(list: List<Team>) {
         binding.rvLeaderBoard.apply {
             leaderBoardAdapter?.let { viewAdapter ->
                 viewAdapter.teams = list
@@ -108,8 +115,8 @@ class HomeFragment : Fragment() {
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {
         findNavController().navigate(
-                destinationId,
-                bundle
+            destinationId,
+            bundle
         )
     }
 
