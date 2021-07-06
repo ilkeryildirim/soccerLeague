@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.item.leaderboard
+package com.ilkeryildirim.soccerleague.ui.screens.home.items
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ilkeryildirim.soccerleague.R
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.ItemHomeLeaderboardBinding
 
 

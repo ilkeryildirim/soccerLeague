@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+        navController.previousBackStackEntry?.let{ previousBackStackEntry->
+           navController.navigate(previousBackStackEntry.destination.id)
+        }.run {
+            navController.navigateUp()
+        }
+        return true
     }
 }

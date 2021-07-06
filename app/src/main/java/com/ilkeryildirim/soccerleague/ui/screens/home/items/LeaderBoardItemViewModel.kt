@@ -1,9 +1,9 @@
-package com.ilkeryildirim.soccerleague.ui.item.leaderboard
+package com.ilkeryildirim.soccerleague.ui.screens.home.items
 
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 
 class LeaderBoardItemViewModel : ViewModel() {
 
