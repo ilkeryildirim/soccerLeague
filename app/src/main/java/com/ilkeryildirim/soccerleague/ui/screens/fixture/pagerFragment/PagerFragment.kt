@@ -14,10 +14,7 @@ import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Week
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentPagerBinding
-
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesItemAdapter
-import com.ilkeryildirim.soccerleague.ui.screens.home.items.LeaderBoardAdapter
-import com.orhanobut.hawk.Hawk
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,14 +51,12 @@ class PagerFragment : Fragment() {
 
     private fun getFixture() {
         lifecycleScope.launchWhenCreated {
-            var week : Week?=null
-            var teams: Teams?=null
+            var week: Week? = null
+            var teams: Teams? = null
+            week = arguments?.get("Week") as Week?
+            teams = arguments?.get("Teams") as Teams?
 
-           teams = Hawk.get<Teams>("Teams")
-           week = Hawk.get<Fixture>("Fixture").week?.get(0)
-            if((week == null&&teams==null).not()){
-                initWeekFixture(week!!,teams!!)
-            }
+            initWeekFixture(week!!, teams!!)
         }
 
     }

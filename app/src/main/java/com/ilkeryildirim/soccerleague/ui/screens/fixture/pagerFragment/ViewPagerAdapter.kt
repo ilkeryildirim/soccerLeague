@@ -12,6 +12,10 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     fun addFragment(fragment: Fragment) {
         arrayList.add(fragment)
     }
+    fun addFragmentWithBundle(fragment: Fragment,bundle: Bundle) {
+        fragment.arguments = bundle
+        arrayList.add(fragment)
+    }
 
     override fun getItemCount(): Int {
         return arrayList.size

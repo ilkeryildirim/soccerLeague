@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
 import com.ilkeryildirim.soccerleague.ui.screens.home.items.LeaderBoardAdapter
-import com.orhanobut.hawk.Hawk
 
 
 import dagger.hilt.android.AndroidEntryPoint

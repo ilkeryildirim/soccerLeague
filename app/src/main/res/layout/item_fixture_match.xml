@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.name}"
-                        android:textSize="24sp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Arsenal"
-                        android:textSize="24sp">
+                        android:textSize="18sp">
 
                     </TextView>
 

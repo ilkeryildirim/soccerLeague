@@ -8,7 +8,6 @@ import com.ilkeryildirim.soccerleague.data.remote.api.SoccerLeagueApiResult
 import com.ilkeryildirim.soccerleague.data.remote.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
-import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -32,10 +31,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onFixtureFragmentDestination() {
-
-        _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_fixtureFragment, Bundle.EMPTY)
-        Hawk.put("Teams",teams)
-        Hawk.put("Fixture",fixture)
+        val bundle = Bundle()
+        bundle.putParcelable("Teams",teams)
+        bundle.putParcelable("Fixture",fixture)
+        _uiState.value = HomeFragmentUIState.Navigate(R.id.fixtureFragment, bundle)
     }
 
     fun getTeamsAndFixture() {

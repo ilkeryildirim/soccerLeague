@@ -14,8 +14,7 @@ import com.ilkeryildirim.soccerleague.data.remote.model.team.Teams
 import com.ilkeryildirim.soccerleague.databinding.FragmentFixtureBinding
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerAdapter
-import com.orhanobut.hawk.Hawk
-
+import com.ilkeryildirim.soccerleague.ui.screens.home.items.ViewPagerTransformer
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -54,13 +53,21 @@ class FixtureFragment : Fragment() {
         fixtureAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         lifecycleScope.launchWhenCreated {
             var fixture: Fixture? = null
-            fixture = Hawk.get<Fixture>("Fixture")
+            var teams: Teams? = null
 
+            arguments?.let {
+                fixture = it["Fixture"] as Fixture?
+                teams = it["Teams"] as Teams
+
+            }
             fixture?.week?.forEach {
-
-                fixtureAdapter!!.addFragment(PagerFragment())
+                val bundle = Bundle()
+                bundle.putParcelable("Week",it)
+                bundle.putParcelable("Teams",teams)
+                fixtureAdapter!!.addFragmentWithBundle(PagerFragment(),bundle)
             }
         }
+        binding.viewPager.setPageTransformer(ViewPagerTransformer())
         binding.viewPager.adapter = fixtureAdapter
     }
 

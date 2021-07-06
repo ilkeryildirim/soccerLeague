@@ -20,7 +20,7 @@ class WeeklyMatchesItemAdapter(var week: Week, var teams: Teams, val itemClick: 
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemFixtureMatchBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_home_leaderboard, parent, false)
+        val binding: ItemFixtureMatchBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_fixture_match, parent, false)
         context = parent.context
         return ViewHolder(binding,teams, itemClick)
     }
