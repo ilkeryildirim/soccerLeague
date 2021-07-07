@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragmentViewModel" />
     </data>
 
 
- <LinearLayout
+    <LinearLayout
 
-     android:orientation="vertical"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-     <TextView
-         android:text="AAA"
-         android:gravity="center"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvWeekDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-     </TextView>
+        </TextView>
 
-     <androidx.recyclerview.widget.RecyclerView
-         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-         android:id="@+id/rvWeeklyMatches"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeeklyMatches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
-     </androidx.recyclerview.widget.RecyclerView>
- </LinearLayout>
-
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
 </layout>

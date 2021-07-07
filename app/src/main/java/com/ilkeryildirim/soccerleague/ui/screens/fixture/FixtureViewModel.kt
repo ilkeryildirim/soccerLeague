@@ -17,7 +17,6 @@ class FixtureViewModel @Inject constructor(
     private val soccerLeagueDao: SoccerLeagueDao
 ) : ViewModel() {
 
-
     private val _uiState = MutableStateFlow<FixtureFragmentUIState>(FixtureFragmentUIState.Initial)
     val uiState: StateFlow<FixtureFragmentUIState> = _uiState
 
@@ -34,12 +33,6 @@ class FixtureViewModel @Inject constructor(
         }
 
     }
-
-    fun onRefresh() {
-        _uiState.value = FixtureFragmentUIState.Loading
-    }
-
-
 }
 
 sealed class FixtureFragmentUIState {

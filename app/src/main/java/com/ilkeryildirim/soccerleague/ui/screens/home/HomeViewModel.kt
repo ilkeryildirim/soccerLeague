@@ -1,13 +1,14 @@
 package com.ilkeryildirim.soccerleague.ui.screens.home
 
 import android.os.Bundle
+import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilkeryildirim.soccerleague.R
 import com.ilkeryildirim.soccerleague.data.local.SoccerLeagueDao
-import com.ilkeryildirim.soccerleague.data.remote.api.ApiResult
 import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.team.Teams
+import com.ilkeryildirim.soccerleague.data.remote.api.ApiResult
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeDataRepository: HomeDataRepository,
-    private val soccerLeagueDao: SoccerLeagueDao
+        private val homeDataRepository: HomeDataRepository,
+        private val soccerLeagueDao: SoccerLeagueDao
 ) : ViewModel() {
-
 
     private val _uiState = MutableStateFlow<HomeFragmentUIState>(HomeFragmentUIState.Initial)
     val uiState: StateFlow<HomeFragmentUIState> = _uiState
@@ -31,12 +31,7 @@ class HomeViewModel @Inject constructor(
         getTeams()
     }
 
-    fun onRefresh() {
-        _uiState.value = HomeFragmentUIState.Loading
-    }
-
     fun onFixtureFragmentDestination() {
-
         _uiState.value = HomeFragmentUIState.Navigate(R.id.fixtureFragment, Bundle.EMPTY)
     }
 
@@ -83,7 +78,8 @@ class HomeViewModel @Inject constructor(
     private suspend fun addTeamsToDB(teams: Teams) {
         withContext(Dispatchers.IO) {
             teams.teams?.let { teamList ->
-                soccerLeagueDao.insertTeams(teamList) }
+                soccerLeagueDao.insertTeams(teamList)
+            }
         }
     }
 
@@ -97,7 +93,6 @@ class HomeViewModel @Inject constructor(
     }
 
 }
-
 
 sealed class HomeFragmentUIState {
     object Initial : HomeFragmentUIState()

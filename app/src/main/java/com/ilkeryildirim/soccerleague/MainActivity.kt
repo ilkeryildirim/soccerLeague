@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        navController.navigateUp()
+        with(navController){
+            if(currentDestination?.id != R.id.pagerFragment) navigateUp()
+        }
         return true
     }
 }

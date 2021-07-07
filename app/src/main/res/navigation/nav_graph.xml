@@ -28,4 +28,8 @@
         android:id="@+id/fixtureFragment"
         android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragment"
         android:label="FixtureFragment" />
+    <fragment
+        android:id="@+id/pagerFragment"
+        android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment"
+        android:label="PagerFragment" />
 </navigation>

@@ -29,9 +29,9 @@ class FixtureFragment : Fragment() {
     private var _binding: FragmentFixtureBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFixtureBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -68,8 +68,6 @@ class FixtureFragment : Fragment() {
 
     private fun createWeeklyFixtures(weeks: List<Week?>) {
         val fixtureAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-
-        println("weeks size ${weeks.size}  $weeks")
         weeks.forEachIndexed { index, week ->
             val bundle = Bundle()
             bundle.putInt("Week_Index", index)
@@ -96,8 +94,8 @@ class FixtureFragment : Fragment() {
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {
         findNavController().navigate(
-            destinationId,
-            bundle
+                destinationId,
+                bundle
         )
     }
 }

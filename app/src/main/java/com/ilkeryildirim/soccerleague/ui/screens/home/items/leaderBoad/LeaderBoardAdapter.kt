@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.screens.home.items
+package com.ilkeryildirim.soccerleague.ui.screens.home.items.leaderBoad
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -33,14 +33,14 @@ class LeaderBoardAdapter(var teams: List<Team>, val itemClick: (Team) -> Unit) :
     }
 
     override fun getItemCount(): Int {
-      return teams.size
+        return teams.size
     }
 
     class ViewHolder(private val binding: ItemHomeLeaderboardBinding, private val itemClick: (Team) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         private val viewModel = LeaderBoardItemViewModel()
         fun bind(team: Team) {
             binding.viewModel = viewModel
-            viewModel.bind(team,adapterPosition)
+            viewModel.bind(team, adapterPosition)
             binding.root.setOnClickListener { itemClick(team) }
         }
     }
