@@ -34,7 +34,7 @@ class PagerFragmentViewModel @Inject constructor(
             val teamsFlow = flowOf(soccerLeagueDao.getTeams())
             fixtureFlow.zip(teamsFlow) { fixtureResult, teamsResult ->
                 _uiState.value=PagerFragmentUIState.FixtureAndTeamsLoaded(fixtureResult,teamsResult)
-            }
+            }.collect()
         }
     }
 

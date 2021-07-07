@@ -70,6 +70,9 @@ class PagerFragment : Fragment() {
                     }
                     is FixtureAndTeamsLoaded -> {
                         with(state) {
+                            println("state ${state.fixture}")
+                            println("state ${state.teams}")
+
                             getWeekIndex()?.let {index->
                                 fixture[index]?.let { weeklyFixture->
                                   initWeekFixture(weeklyFixture,teams)
@@ -91,6 +94,8 @@ class PagerFragment : Fragment() {
 
 
     private fun initWeekFixture(week: Week, teams: List<Team?>) {
+        println("initWeekFixture $week")
+        println("initWeekFixture $teams")
         binding.rvWeeklyMatches.apply {
             weeklyMatchesAdapter?.let { viewAdapter ->
                 viewAdapter.week = week
@@ -124,5 +129,4 @@ class PagerFragment : Fragment() {
             bundle
         )
     }
-
 }

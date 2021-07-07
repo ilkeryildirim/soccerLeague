@@ -74,8 +74,6 @@ class FixtureFragment : Fragment() {
             val bundle = Bundle()
             bundle.putInt("Week_Index", index)
             fixtureAdapter.addFragmentWithBundle(PagerFragment(), bundle)
-            println("44")
-            println(index)
         }
         with(binding.viewPager) {
             setPageTransformer(ViewPagerTransformer())

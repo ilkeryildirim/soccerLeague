@@ -15,6 +15,7 @@ class LeaderBoardItemViewModel : ViewModel() {
     fun bind(team: Team,position: Int) {
         name.value=team.name
         this.position.value = (position+1).toString()
+        imageUrl.value = team.image?.logo_thumbnail_url
     }
 
     fun getImageUrl() = imageUrl
