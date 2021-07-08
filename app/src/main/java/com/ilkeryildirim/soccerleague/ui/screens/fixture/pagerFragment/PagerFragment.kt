@@ -9,10 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.fixture.Week
 import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.FragmentPagerBinding
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesItemAdapter
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.items.FixtureMatchItemAdapter
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragmentUIState.*
 
 
@@ -26,12 +27,12 @@ class PagerFragment : Fragment() {
     private val viewModel: PagerFragmentViewModel by viewModels()
     private var _binding: FragmentPagerBinding? = null
     private val binding get() = _binding!!
-    var weeklyMatchesAdapter: WeeklyMatchesItemAdapter? = null
+    var fixtureMatchAdapter: FixtureMatchItemAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPagerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -43,17 +44,10 @@ class PagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeFragmentViewState()
         observeViewModel()
-        getFixture()
+
     }
 
     private fun observeViewModel() {}
-
-    private fun getFixture() {
-        lifecycleScope.launchWhenCreated {
-
-        }
-
-    }
 
     private fun observeFragmentViewState() {
         lifecycleScope.launchWhenCreated {
@@ -70,9 +64,10 @@ class PagerFragment : Fragment() {
                     }
                     is FixtureAndTeamsLoaded -> {
                         with(state) {
-                            getWeekIndex()?.let {index->
-                                fixture[index]?.let { weeklyFixture->
-                                  initWeekFixture(weeklyFixture,teams)
+                            getWeekIndex()?.let { index ->
+                                fixture[index]?.let { weeklyFixture ->
+                                    binding.tvWeekDescription.text = weeklyFixture.description
+                                    initWeekFixture(weeklyFixture, teams)
                                 }
                             }.run {
                                 //show an error occurred
@@ -89,19 +84,18 @@ class PagerFragment : Fragment() {
         return arguments?.getInt("Week_Index")
     }
 
-
     private fun initWeekFixture(week: Week, teams: List<Team?>) {
         binding.rvWeeklyMatches.apply {
-            weeklyMatchesAdapter?.let { viewAdapter ->
+            fixtureMatchAdapter?.let { viewAdapter ->
                 viewAdapter.week = week
                 viewAdapter.teams = teams
                 viewAdapter.notifyDataSetChanged()
             }.run {
                 println(week)
                 println(teams)
-                weeklyMatchesAdapter = WeeklyMatchesItemAdapter(week, teams) {}
+                fixtureMatchAdapter = FixtureMatchItemAdapter(week, teams) {}
             }
-            adapter = weeklyMatchesAdapter!!
+            adapter = fixtureMatchAdapter!!
         }
     }
 
@@ -120,9 +114,8 @@ class PagerFragment : Fragment() {
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {
         findNavController().navigate(
-            destinationId,
-            bundle
+                destinationId,
+                bundle
         )
     }
-
 }

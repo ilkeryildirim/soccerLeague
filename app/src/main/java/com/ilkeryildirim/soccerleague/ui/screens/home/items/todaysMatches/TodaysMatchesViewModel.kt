@@ -1,18 +1,18 @@
-package com.ilkeryildirim.soccerleague.ui.screens.fixture.items
+package com.ilkeryildirim.soccerleague.ui.screens.home.items.todaysMatches
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ilkeryildirim.soccerleague.data.model.fixture.Match
 import com.ilkeryildirim.soccerleague.data.model.team.Team
 
-class WeeklyMatchesViewModel : ViewModel() {
+
+class TodaysMatchesViewModel : ViewModel() {
 
     private val matchDate = MutableLiveData<String?>()
     private val hostTeamName = MutableLiveData<String?>()
     private val hostTeamImage = MutableLiveData<String?>()
     private val guestTeamName = MutableLiveData<String?>()
     private val guestTeamImage = MutableLiveData<String?>()
-
     fun bind(match: Match, teams: List<Team?>) {
         matchDate.value = match.time
         teams.forEach { team ->

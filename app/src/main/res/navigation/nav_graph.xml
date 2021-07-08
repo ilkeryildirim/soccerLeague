@@ -22,10 +22,18 @@
         <action
             android:id="@+id/action_homeFragment_to_fixtureFragment"
             app:destination="@id/fixtureFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scoresFragment"
+            app:destination="@id/scoresFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_fixture"
         android:id="@+id/fixtureFragment"
         android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragment"
         android:label="FixtureFragment" />
+    <fragment
+        tools:layout="@layout/fragment_scores"
+        android:id="@+id/scoresFragment"
+        android:name="com.ilkeryildirim.soccerleague.ui.screens.scores.ScoresFragment"
+        android:label="ScoresFragment" />
 </navigation>

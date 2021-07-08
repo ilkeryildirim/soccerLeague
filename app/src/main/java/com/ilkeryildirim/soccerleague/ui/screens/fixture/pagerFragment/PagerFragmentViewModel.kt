@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PagerFragmentViewModel @Inject constructor(
-    private val soccerLeagueDao: SoccerLeagueDao
+        private val soccerLeagueDao: SoccerLeagueDao
 ) : ViewModel() {
 
 
@@ -33,23 +33,16 @@ class PagerFragmentViewModel @Inject constructor(
             val fixtureFlow = flowOf(soccerLeagueDao.getFixture())
             val teamsFlow = flowOf(soccerLeagueDao.getTeams())
             fixtureFlow.zip(teamsFlow) { fixtureResult, teamsResult ->
-                _uiState.value=PagerFragmentUIState.FixtureAndTeamsLoaded(fixtureResult,teamsResult)
-            }
+                _uiState.value = PagerFragmentUIState.FixtureAndTeamsLoaded(fixtureResult, teamsResult)
+            }.collect()
         }
     }
-
-    suspend fun getFixtureFromDB() {
-        withContext(Dispatchers.IO) {
-            soccerLeagueDao.getFixture()
-        }
-    }
-
 }
 
 
 sealed class PagerFragmentUIState {
     object Initial : PagerFragmentUIState()
     object Loading : PagerFragmentUIState()
-    data class FixtureAndTeamsLoaded(var fixture:List<Week?>, var teams: List<Team?>) : PagerFragmentUIState()
+    data class FixtureAndTeamsLoaded(var fixture: List<Week?>, var teams: List<Team?>) : PagerFragmentUIState()
     data class Error(val message: String) : PagerFragmentUIState()
 }

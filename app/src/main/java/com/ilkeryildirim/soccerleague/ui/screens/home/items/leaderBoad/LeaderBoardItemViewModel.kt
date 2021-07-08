@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.screens.home.items
+package com.ilkeryildirim.soccerleague.ui.screens.home.items.leaderBoad
 
 
 import androidx.lifecycle.MutableLiveData
@@ -12,9 +12,11 @@ class LeaderBoardItemViewModel : ViewModel() {
     private val name = MutableLiveData<String?>()
     private val position = MutableLiveData<String?>()
 
-    fun bind(team: Team,position: Int) {
-        name.value=team.name
-        this.position.value = (position+1).toString()
+    fun bind(team: Team, position: Int) {
+        name.value = team.name
+        this.position.value = (position + 1).toString()
+        imageUrl.value = team.image?.logo_medium_url
+
     }
 
     fun getImageUrl() = imageUrl

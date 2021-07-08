@@ -1,83 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_fragment_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureViewModel" />
     </data>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textSize="48sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_black"
-                    android:text="Fixture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
-                </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_x_large"
+                android:orientation="vertical">
+
                 <TextView
-                    android:paddingStart="4dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_gray"
-                    android:text="the company of football with ballers "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/string_fixture"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/size_text_xxxxx_large"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/string_discover_description"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/size_text_large"
                     tools:ignore="RtlSymmetry">
 
                 </TextView>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginStart="@dimen/dimen_x_large"
+                android:layout_marginEnd="@dimen/dimen_x_large"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include3">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
-                    android:layout_width="match_parent"
-                    app:tabSelectedTextColor="@color/color_green"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="#e4e4e4" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
-
 
 </layout>

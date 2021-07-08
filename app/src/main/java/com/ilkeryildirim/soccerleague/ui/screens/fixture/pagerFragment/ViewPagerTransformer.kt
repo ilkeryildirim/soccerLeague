@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.screens.home.items
+package com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

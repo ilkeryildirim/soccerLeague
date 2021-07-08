@@ -1,4 +1,4 @@
-package com.ilkeryildirim.soccerleague.ui.screens.fixture
+package com.ilkeryildirim.soccerleague.ui.screens.scores
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,31 +9,31 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
-import com.ilkeryildirim.soccerleague.data.model.fixture.Week
-import com.ilkeryildirim.soccerleague.data.model.team.Teams
-import com.ilkeryildirim.soccerleague.databinding.FragmentFixtureBinding
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragmentUIState.*
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerAdapter
-import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerTransformer
+import com.ilkeryildirim.soccerleague.data.model.team.Team
+import com.ilkeryildirim.soccerleague.databinding.FragmentScoresBinding
+import com.ilkeryildirim.soccerleague.ui.screens.scores.ScoresFragmentUIState.*
+import com.ilkeryildirim.soccerleague.ui.screens.scores.items.ScoresItemAdapter
+
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlin.Error
 
 
 @AndroidEntryPoint
-class FixtureFragment : Fragment() {
+class ScoresFragment : Fragment() {
 
-    private val viewModel: FixtureViewModel by viewModels()
-    private var _binding: FragmentFixtureBinding? = null
+    private val viewModel: ScoresViewModel by viewModels()
+    private var _binding: FragmentScoresBinding? = null
     private val binding get() = _binding!!
+    var scoresIteamAdapter: ScoresItemAdapter? = null
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFixtureBinding.inflate(inflater, container, false)
+        _binding = FragmentScoresBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
@@ -56,27 +56,31 @@ class FixtureFragment : Fragment() {
                         hideContent()
                     }
                     is Error -> {
-                        state.message.let(::showError)
+                        state.message?.let(::showError)
                     }
-                    is FixtureLoaded -> {
-                        state.fixture.let(::createWeeklyFixtures)
+                    is TeamsLoaded -> {
+                        with(state.teams.let(::getSortedTeamListByPoint)){
+                            createScoreTable(this)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun createWeeklyFixtures(weeks: List<Week?>) {
-        val fixtureAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-        weeks.forEachIndexed { index, week ->
-            val bundle = Bundle()
-            bundle.putInt("Week_Index", index)
-            fixtureAdapter.addFragmentWithBundle(PagerFragment(), bundle)
-        }
-        with(binding.viewPager) {
-            setPageTransformer(ViewPagerTransformer())
-            adapter = fixtureAdapter
+    private fun getSortedTeamListByPoint(teams:List<Team?>): List<Team?> {
+       return teams.sortedBy { team -> team?.league_score?.toInt() }
+    }
 
+    private fun createScoreTable(teams: List<Team?>) {
+        binding.rvScores.apply {
+            scoresIteamAdapter?.let { viewAdapter ->
+                viewAdapter.teams = teams
+                viewAdapter.notifyDataSetChanged()
+            }.run {
+                scoresIteamAdapter = ScoresItemAdapter(teams)
+            }
+            adapter = scoresIteamAdapter!!
         }
     }
 

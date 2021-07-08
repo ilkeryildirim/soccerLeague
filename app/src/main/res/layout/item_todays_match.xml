@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ilkeryildirim.soccerleague.ui.screens.fixture.items.WeeklyMatchesViewModel" />
+            type="com.ilkeryildirim.soccerleague.ui.screens.home.items.todaysMatches.TodaysMatchesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,10 +37,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_xx_small"
+            android:layout_marginStart="8dp"
             android:text="@{viewModel.hostTeamName}"
             android:textColor="@color/color_text_title"
-            android:textSize="@dimen/size_text_small"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/textView4">
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:text="@string/string_versus"
             android:textColor="@color/color_text_subtitle"
-            android:textSize="@dimen/size_text_small"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +67,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimen_xx_small"
+            android:layout_marginEnd="8dp"
             android:text="@{viewModel.guestTeamName}"
             android:textColor="@color/color_text_title"
-            android:textSize="@dimen/size_text_small"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/textView4">
@@ -118,6 +118,5 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
