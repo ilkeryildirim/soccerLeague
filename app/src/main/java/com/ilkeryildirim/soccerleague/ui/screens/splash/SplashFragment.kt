@@ -45,13 +45,16 @@ class SplashFragment : Fragment() {
         }
     }
 
-
-
     private fun navigate(destinationId: Int, bundle: Bundle?) {
         findNavController().navigate(
                 destinationId,
                 bundle
         )
+    }
+
+    override fun onDestroy() {
+        _binding=null
+        super.onDestroy()
     }
 
 }

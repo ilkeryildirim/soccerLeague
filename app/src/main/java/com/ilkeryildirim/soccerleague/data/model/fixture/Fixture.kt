@@ -2,5 +2,5 @@ package com.ilkeryildirim.soccerleague.data.model.fixture
 
 
 data class Fixture(
-    var week: List<Week?>
+        var week: List<Week?>
 )

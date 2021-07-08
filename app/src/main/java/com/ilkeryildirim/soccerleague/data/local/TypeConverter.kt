@@ -18,31 +18,31 @@ class TypeConverter {
 
     @TypeConverter
     fun toMatchString(match: List<Match>): String {
-        val type = object: TypeToken<List<Match>>() {}.type
+        val type = object : TypeToken<List<Match>>() {}.type
         return Gson().toJson(match, type)
     }
 
     @TypeConverter
-    fun toTeamImage(json: String):TeamImages {
+    fun toTeamImage(json: String): TeamImages {
         val type = object : TypeToken<TeamImages>() {}.type
         return Gson().fromJson(json, type)
     }
 
     @TypeConverter
     fun toTeamImageString(teamImages: TeamImages): String {
-        val type = object: TypeToken<TeamImages>() {}.type
+        val type = object : TypeToken<TeamImages>() {}.type
         return Gson().toJson(teamImages, type)
     }
 
     @TypeConverter
-    fun toWeeks(json: String):Week {
+    fun toWeeks(json: String): Week {
         val type = object : TypeToken<Week>() {}.type
         return Gson().fromJson(json, type)
     }
 
     @TypeConverter
     fun toWeeksString(weeks: List<Week>): String {
-        val type = object: TypeToken<List<Week>>() {}.type
+        val type = object : TypeToken<List<Week>>() {}.type
         return Gson().toJson(weeks, type)
     }
 

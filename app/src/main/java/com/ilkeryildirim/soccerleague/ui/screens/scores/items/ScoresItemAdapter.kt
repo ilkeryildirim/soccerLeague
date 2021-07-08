@@ -30,7 +30,7 @@ class ScoresItemAdapter(var teams: List<Team?>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         teams[position].let { team ->
-            team?.let { _team -> holder.bind(_team) }
+            team?.let { _team -> holder.bind(_team,position+1) }
             setAnimation(holder.itemView, position)
         }
 
@@ -48,9 +48,9 @@ class ScoresItemAdapter(var teams: List<Team?>) :
     class ViewHolder(private val binding: ItemScoresBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val viewModel = ScoresItemViewModel()
-        fun bind(team: Team) {
+        fun bind(team: Team,position: Int) {
             binding.viewModel = viewModel
-            viewModel.bind(team)
+            viewModel.bind(team,position)
         }
     }
 

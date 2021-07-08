@@ -16,7 +16,7 @@ class AppNameGlideModule : AppGlideModule() {
         super.applyOptions(context, builder)
         builder.apply {
             RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
-                .signature(ObjectKey(System.currentTimeMillis().toShort()))
+                    .signature(ObjectKey(System.currentTimeMillis().toShort()))
         }
     }
 

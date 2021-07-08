@@ -5,6 +5,6 @@ import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.team.Teams
 
 interface HomeDataRepository {
-    suspend fun getTeams() : ApiResult<Teams>
-    suspend fun getFixture() : ApiResult<Fixture>
+    suspend fun getTeams(): ApiResult<Teams>
+    suspend fun getFixture(): ApiResult<Fixture>
 }

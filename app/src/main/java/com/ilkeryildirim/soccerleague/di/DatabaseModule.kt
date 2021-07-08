@@ -31,8 +31,6 @@ object DatabaseModule {
         return TypeConverter()
     }
 
-
-
     @Provides
     fun provideSoccerLeagueDao(appDatabase: AppDatabase): SoccerLeagueDao {
         return appDatabase.soccerLeagueDao()
