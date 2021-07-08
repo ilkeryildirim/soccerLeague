@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ilkeryildirim.soccerleague.ui.screens.scores.items.ScoresItemViewModel" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_xxxx_small"
+        android:layout_marginBottom="@dimen/dimen_small"
+        app:cardCornerRadius="@dimen/dimen_xx_small"
+        app:cardElevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:weightSum="100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_weight="50"
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card_gradient2"
+                    android:padding="@dimen/dimen_small"
+                    android:textColor="@color/color_leader_numbers"
+                    android:textSize="@dimen/size_text_xxxx_large" />
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_xxxx_large"
+                    android:layout_height="@dimen/dimen_xxxx_large"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimen_small"
+                    android:src="@drawable/arsenal">
+
+                </ImageView>
+
+                <TextView
+                    android:text="@{viewModel.teamName}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimen_xxxx_small"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/dimen_small">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="50"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/size_text_small">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/size_text_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+                <View
+                    android:layout_marginStart="@dimen/dimen_small"
+                    android:layout_marginEnd="@dimen/dimen_small"
+                    android:background="@color/color_text_subtitle"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+
+                </View>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/dimen_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                </TextView>
+                <View
+                    android:layout_marginStart="@dimen/dimen_small"
+                    android:layout_marginEnd="@dimen/dimen_small"
+                    android:background="@color/color_text_subtitle"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+
+                </View>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/dimen_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                </TextView>
+                <View
+                    android:layout_marginStart="@dimen/dimen_small"
+                    android:layout_marginEnd="@dimen/dimen_small"
+                    android:background="@color/color_text_subtitle"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+
+                </View>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/dimen_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                </TextView>
+
+                <View
+                    android:layout_marginStart="@dimen/dimen_small"
+                    android:layout_marginEnd="@dimen/dimen_small"
+                    android:background="@color/color_text_subtitle"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+
+                </View>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/dimen_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                </TextView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

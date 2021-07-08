@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_fixtureFragment"
             app:destination="@id/fixtureFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scoresFragment"
+            app:destination="@id/scoresFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_fixture"
@@ -29,7 +32,8 @@
         android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragment"
         android:label="FixtureFragment" />
     <fragment
-        android:id="@+id/pagerFragment"
-        android:name="com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment"
-        android:label="PagerFragment" />
+        tools:layout="@layout/fragment_scores"
+        android:id="@+id/scoresFragment"
+        android:name="com.ilkeryildirim.soccerleague.ui.screens.scores.ScoresFragment"
+        android:label="ScoresFragment" />
 </navigation>

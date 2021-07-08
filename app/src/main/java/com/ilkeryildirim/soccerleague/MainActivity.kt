@@ -21,9 +21,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        with(navController){
-            if(currentDestination?.id != R.id.pagerFragment) navigateUp()
-        }
         return true
+    }
+
+    override fun onBackPressed() {
+        navController.navigateUp()
+        super.onBackPressed()
     }
 }

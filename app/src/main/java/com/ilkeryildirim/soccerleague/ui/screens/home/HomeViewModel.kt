@@ -33,7 +33,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onFixtureFragmentDestination() {
-        _uiState.value = HomeFragmentUIState.Navigate(R.id.fixtureFragment, Bundle.EMPTY)
+        _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_fixtureFragment, Bundle.EMPTY)
+    }
+    fun onScoresFragmentDestination() {
+        _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_scoresFragment, Bundle.EMPTY)
     }
 
     private fun getTeams() {
