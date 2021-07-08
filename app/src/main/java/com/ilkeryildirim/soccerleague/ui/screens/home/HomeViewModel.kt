@@ -21,8 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeDataRepository: HomeDataRepository,
-    private val soccerLeagueDao: SoccerLeagueDao
+        private val homeDataRepository: HomeDataRepository,
+        private val soccerLeagueDao: SoccerLeagueDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeFragmentUIState>(HomeFragmentUIState.Initial)
@@ -35,6 +35,7 @@ class HomeViewModel @Inject constructor(
     fun onFixtureFragmentDestination() {
         _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_fixtureFragment, Bundle.EMPTY)
     }
+
     fun onScoresFragmentDestination() {
         _uiState.value = HomeFragmentUIState.Navigate(R.id.action_homeFragment_to_scoresFragment, Bundle.EMPTY)
     }
@@ -45,13 +46,11 @@ class HomeViewModel @Inject constructor(
                 when (teamsResult) {
                     is ApiResult.Error -> {
                         teamsResult.message?.let { errorMessage ->
-                            println(errorMessage)
                             _uiState.value = HomeFragmentUIState.Error(errorMessage)
                         }
                     }
                     is ApiResult.Success -> {
                         _uiState.value = HomeFragmentUIState.TeamsLoaded(teamsResult.data)
-                        println(teamsResult.data)
                         addTeamsToDB(teamsResult.data)
                         getFixture()
                     }
@@ -66,7 +65,6 @@ class HomeViewModel @Inject constructor(
                 when (fixtureResult) {
                     is ApiResult.Error -> {
                         fixtureResult.message?.let { errorMessage ->
-                            println(errorMessage)
                             _uiState.value = HomeFragmentUIState.Error(errorMessage)
                         }
                     }
@@ -81,6 +79,7 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun addTeamsToDB(teams: Teams) {
         withContext(Dispatchers.IO) {
+            soccerLeagueDao.deleteTeams()
             teams.teams?.let { teamList ->
                 soccerLeagueDao.insertTeams(teamList)
             }
@@ -89,6 +88,7 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun addFixtureToDB(fixture: Fixture) {
         withContext(Dispatchers.IO) {
+            soccerLeagueDao.deleteFixture()
             fixture.week.let { fixtureWeekList ->
                 soccerLeagueDao.insertFixtureWeeks(fixtureWeekList)
             }

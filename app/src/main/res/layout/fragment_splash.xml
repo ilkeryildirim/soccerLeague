@@ -17,11 +17,12 @@
         <ImageView
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:src="@drawable/abc_vector_test"
+            android:src="@color/darkcyan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/color_text_title">
 
         </ImageView>
     </androidx.constraintlayout.widget.ConstraintLayout>

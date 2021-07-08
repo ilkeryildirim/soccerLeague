@@ -56,7 +56,7 @@
                         <LinearLayout
                             android:padding="@dimen/dimen_small"
                             android:layout_marginStart="@dimen/dimen_small"
-                            android:layout_weight="50"
+                            android:layout_weight="48"
                             android:id="@+id/linearLayout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
                             <TextView
-                                android:text="Team Name"
+                                android:text="@string/string_teams"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -76,17 +76,17 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:layout_marginEnd="@dimen/dimen_small"
                             android:layout_weight="50"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/size_text_small">
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:layout_gravity="center"
                                 android:id="@+id/textView2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pl"
+                                android:text="W"
                                 android:textColor="@color/color_text_subtitle"
                                 android:textSize="@dimen/size_text_small"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +107,7 @@
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="W"
+                                android:text="L"
                                 android:textColor="@color/color_text_subtitle"
                                 android:textSize="@dimen/dimen_small"
                                 app:layout_constraintEnd_toEndOf="parent"

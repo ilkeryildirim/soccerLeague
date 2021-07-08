@@ -24,25 +24,24 @@ object NetworkModule {
         loggingInterceptor
     }
 
-
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(ApiConstants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+                .baseUrl(ApiConstants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
     }
 
     @Provides
-    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor):OkHttpClient{
-        return  OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor).build()
+    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor).build()
     }
 
     @Provides
     @Singleton
     fun provideSoccerLeagueApi(retrofit: Retrofit): SoccerLeagueApi =
-        retrofit.create(SoccerLeagueApi::class.java)
+            retrofit.create(SoccerLeagueApi::class.java)
 
 }

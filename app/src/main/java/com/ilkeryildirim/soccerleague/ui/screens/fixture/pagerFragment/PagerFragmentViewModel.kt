@@ -39,7 +39,6 @@ class PagerFragmentViewModel @Inject constructor(
     }
 }
 
-
 sealed class PagerFragmentUIState {
     object Initial : PagerFragmentUIState()
     object Loading : PagerFragmentUIState()

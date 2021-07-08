@@ -20,10 +20,10 @@ interface SoccerLeagueDao {
     @Query("SELECT * FROM week")
     fun getFixture(): List<Week?>
 
-    @Delete
-    fun deleteTeams(teams: List<Team>)
+    @Query("DELETE FROM week")
+    fun deleteFixture()
 
-    @Delete
-    fun deleteFixtureWeeks(weeks: List<Week>)
+    @Query("DELETE FROM team")
+    fun deleteTeams()
 
 }

@@ -53,7 +53,7 @@ class ScoresFragment : Fragment() {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
                     is Initial, Loading -> {
-                        hideContent()
+                        //show loading etc.
                     }
                     is Error -> {
                         state.message?.let(::showError)
@@ -69,7 +69,7 @@ class ScoresFragment : Fragment() {
     }
 
     private fun getSortedTeamListByPoint(teams:List<Team?>): List<Team?> {
-       return teams.sortedBy { team -> team?.league_score?.toInt() }
+       return teams.sortedByDescending { team -> team?.league_score?.toInt() }
     }
 
     private fun createScoreTable(teams: List<Team?>) {
@@ -84,12 +84,9 @@ class ScoresFragment : Fragment() {
         }
     }
 
-    private fun showContent() {
-        //   binding.lytContent.animate().alpha(1.0f)
-    }
-
-    private fun hideContent() {
-        //   binding.lytContent.animate().alpha(0.0f)
+    override fun onDestroy() {
+        _binding=null
+        super.onDestroy()
     }
 
     private fun showError(error: String) {

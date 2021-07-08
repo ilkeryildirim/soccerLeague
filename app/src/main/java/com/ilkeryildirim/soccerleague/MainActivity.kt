@@ -20,12 +20,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.hostFragment)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return true
-    }
-
     override fun onBackPressed() {
-        navController.navigateUp()
-        super.onBackPressed()
+        navController.previousBackStackEntry?.destination?.id?.let { previousDestination -> navController.navigate(previousDestination) }
     }
 }

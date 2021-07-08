@@ -9,7 +9,6 @@ class DateUtil{
         val currentDate = sdf.format(Date())
 
         val stringDate = sdf.format(sdf.parse(date))
-        println(stringDate)
         return currentDate == stringDate
     }
 }

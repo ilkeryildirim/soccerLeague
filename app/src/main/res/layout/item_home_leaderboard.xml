@@ -49,8 +49,7 @@
                     android:layout_width="@dimen/dimen_xxxx_large"
                     android:layout_height="@dimen/dimen_xxxx_large"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dimen_small"
-                    android:src="@drawable/arsenal">
+                    android:layout_marginStart="@dimen/dimen_small">
 
                 </ImageView>
 
@@ -100,8 +99,6 @@
                 </TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
