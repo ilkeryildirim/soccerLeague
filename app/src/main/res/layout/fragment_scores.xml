@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_fragment_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ilkeryildirim.soccerleague.ui.screens.scores.ScoresViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_x_large"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_fixture"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/size_text_xxxxx_large"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/string_discover_description"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/size_text_large"
+                    tools:ignore="RtlSymmetry">
+
+                </TextView>
+
+
+                    <LinearLayout
+                        android:weightSum="100"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:padding="@dimen/dimen_small"
+                            android:layout_marginStart="@dimen/dimen_small"
+                            android:layout_weight="50"
+                            android:id="@+id/linearLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:text="Team Name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/size_text_large">
+
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="50"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/size_text_small">
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pl"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/size_text_small"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            </TextView>
+                            <View
+                                android:layout_marginStart="@dimen/dimen_small"
+                                android:layout_marginEnd="@dimen/dimen_small"
+                                android:background="@color/color_text_subtitle"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent">
+
+                            </View>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="W"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/dimen_small"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                            </TextView>
+                            <View
+                                android:layout_marginStart="@dimen/dimen_small"
+                                android:layout_marginEnd="@dimen/dimen_small"
+                                android:background="@color/color_text_subtitle"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent">
+
+                            </View>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GS"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/dimen_small"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                            </TextView>
+                            <View
+                                android:layout_marginStart="@dimen/dimen_small"
+                                android:layout_marginEnd="@dimen/dimen_small"
+                                android:background="@color/color_text_subtitle"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent">
+
+                            </View>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GC"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/dimen_small"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                            </TextView>
+
+                            <View
+                                android:layout_marginStart="@dimen/dimen_small"
+                                android:layout_marginEnd="@dimen/dimen_small"
+                                android:background="@color/color_text_subtitle"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent">
+
+                            </View>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="P"
+                                android:textColor="@color/color_text_subtitle"
+                                android:textSize="@dimen/dimen_small"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                            </TextView>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dimen_x_large"
+                android:layout_marginEnd="@dimen/dimen_x_large"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include3">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rvScores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

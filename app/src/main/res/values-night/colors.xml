@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_fragment_background">#000000</color>
+    <color name="color_text_title">#FFFFFF</color>
+    <color name="color_text_subtitle">#e0e6ee</color>
+    <color name="color_navigator_texts">#7CFC00</color>
+    <color name="color_leader_numbers">#FFFFFF</color>
+
+</resources>

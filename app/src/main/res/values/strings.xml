@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SoccerLeague</string>
+    <string name="string_discover">Discover</string>
+    <string name="string_discover_description">discover your favorite teams</string>
+    <string name="string_leaderboard">Leader Board</string>
+    <string name="string_today_match">Matches Of The Day</string>
+    <string name="string_fixture">Fixture</string>
+    <string name="string_fixture_description">matches and dates</string>
+    <string name="string_versus">vs</string>
+    <string name="string_teams">Teams</string>
+    <string name="string_score_table">Score Table</string>
+    <string name="string_see_all">See All</string>
+</resources>
