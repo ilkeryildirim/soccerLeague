@@ -51,13 +51,10 @@ class PagerFragment : Fragment() {
 
     private fun observeFragmentViewState() {
         lifecycleScope.launchWhenCreated {
-            println(getWeekIndex())
-        }
-        lifecycleScope.launchWhenCreated {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
                     is Initial, Loading -> {
-                        hideContent()
+                        //show loading etc.
                     }
                     is Error -> {
                         state.message.let(::showError)
@@ -72,7 +69,6 @@ class PagerFragment : Fragment() {
                             }.run {
                                 //show an error occurred
                             }
-
                         }
                     }
                 }
@@ -81,7 +77,7 @@ class PagerFragment : Fragment() {
     }
 
     private fun getWeekIndex(): Int? {
-        return arguments?.getInt("Week_Index")
+        return arguments?.getInt(INDEX_WEEK)
     }
 
     private fun initWeekFixture(week: Week, teams: List<Team?>) {
@@ -91,8 +87,6 @@ class PagerFragment : Fragment() {
                 viewAdapter.teams = teams
                 viewAdapter.notifyDataSetChanged()
             }.run {
-                println(week)
-                println(teams)
                 fixtureMatchAdapter = FixtureMatchItemAdapter(week, teams) {}
             }
             adapter = fixtureMatchAdapter!!
@@ -100,12 +94,9 @@ class PagerFragment : Fragment() {
     }
 
 
-    private fun showContent() {
-        //   binding.lytContent.animate().alpha(1.0f)
-    }
-
-    private fun hideContent() {
-        //   binding.lytContent.animate().alpha(0.0f)
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     private fun showError(error: String) {
@@ -117,5 +108,9 @@ class PagerFragment : Fragment() {
                 destinationId,
                 bundle
         )
+    }
+
+    companion object {
+        private const val INDEX_WEEK = "Week_Index"
     }
 }

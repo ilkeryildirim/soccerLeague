@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.fixture.Week
 import com.ilkeryildirim.soccerleague.data.model.team.Teams
@@ -53,7 +54,7 @@ class FixtureFragment : Fragment() {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
                     is Initial, Loading -> {
-                        hideContent()
+                        //show loading etc.
                     }
                     is Error -> {
                         state.message.let(::showError)
@@ -70,22 +71,19 @@ class FixtureFragment : Fragment() {
         val fixtureAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         weeks.forEachIndexed { index, week ->
             val bundle = Bundle()
-            bundle.putInt("Week_Index", index)
+            bundle.putInt(INDEX_WEEK, index)
             fixtureAdapter.addFragmentWithBundle(PagerFragment(), bundle)
         }
-        with(binding.viewPager) {
-            setPageTransformer(ViewPagerTransformer())
-            adapter = fixtureAdapter
-
+        with(binding) {
+            viewPager.setPageTransformer(ViewPagerTransformer())
+            viewPager.adapter = fixtureAdapter
+            TabLayoutMediator(tabDots, viewPager) { tab, position -> }.attach()
         }
     }
 
-    private fun showContent() {
-        //   binding.lytContent.animate().alpha(1.0f)
-    }
-
-    private fun hideContent() {
-        //   binding.lytContent.animate().alpha(0.0f)
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     private fun showError(error: String) {
@@ -97,5 +95,9 @@ class FixtureFragment : Fragment() {
                 destinationId,
                 bundle
         )
+    }
+
+    companion object {
+        private const val INDEX_WEEK = "Week_Index"
     }
 }

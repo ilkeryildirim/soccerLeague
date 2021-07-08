@@ -13,6 +13,7 @@ import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
 import com.ilkeryildirim.soccerleague.data.model.fixture.Match
 import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.databinding.FragmentHomeBinding
+import com.ilkeryildirim.soccerleague.ui.screens.home.HomeFragmentUIState.*
 import com.ilkeryildirim.soccerleague.ui.screens.home.items.leaderBoad.LeaderBoardAdapter
 import com.ilkeryildirim.soccerleague.ui.screens.home.items.todaysMatches.TodaysMatchItemAdapter
 import com.ilkeryildirim.soccerleague.util.DateUtil
@@ -56,26 +57,23 @@ class HomeFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.uiState.collectLatest { state ->
                 when (state) {
-                    is HomeFragmentUIState.Initial -> {
-                        hideContent()
+                    is Initial, Loading -> {
+                        //show loading etc.
                     }
-                    is HomeFragmentUIState.TeamsLoaded -> {
+                    is TeamsLoaded -> {
                         state.teams.teams?.let { allTeams ->
                             teams = allTeams
                         }
                         initLeaderBoardAdapter(getFilteredTeamsForLeaderBoard(teams))
                     }
-                    is HomeFragmentUIState.FixtureLoaded -> {
+                    is FixtureLoaded -> {
                         initTodaysMatches(getfilteredMatchesForToday(state.fixture))
                     }
-                    is HomeFragmentUIState.Error -> {
+                    is Error -> {
                         state.message.let(::showError)
                         //or show error page
                     }
-                    is HomeFragmentUIState.Loading -> {
-                        hideContent()
-                    }
-                    is HomeFragmentUIState.Navigate -> {
+                    is Navigate -> {
                         state.apply {
                             navigate(destinationId, bundle)
                         }
@@ -130,17 +128,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    private fun showContent() {
-        //   binding.lytContent.animate().alpha(1.0f)
-    }
-
-    private fun hideContent() {
-        //   binding.lytContent.animate().alpha(0.0f)
-    }
-
     private fun showError(error: String) {
         Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     private fun navigate(destinationId: Int, bundle: Bundle?) {

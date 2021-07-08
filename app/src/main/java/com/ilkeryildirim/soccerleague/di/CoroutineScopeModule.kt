@@ -25,6 +25,6 @@ class CoroutineScopeModule {
     @Provides
     @Singleton
     fun provideMainCoroutineScope(mainDispatchers: MainCoroutineDispatcher): CoroutineScope =
-        CoroutineScope(Job() + mainDispatchers)
+            CoroutineScope(Job() + mainDispatchers)
 
 }

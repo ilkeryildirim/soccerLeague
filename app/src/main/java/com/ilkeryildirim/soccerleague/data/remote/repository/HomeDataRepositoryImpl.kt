@@ -8,7 +8,7 @@ import com.ilkeryildirim.soccerleague.data.model.team.Teams
 import javax.inject.Inject
 
 class HomeDataRepositoryImpl @Inject constructor(private val soccerLeagueApi: SoccerLeagueApi) :
-    HomeDataRepository {
+        HomeDataRepository {
 
     override suspend fun getTeams(): ApiResult<Teams> {
         return try {
