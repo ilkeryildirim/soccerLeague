@@ -13,9 +13,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="12dp"
-        app:cardCornerRadius="8dp"
+        android:layout_marginEnd="@dimen/dimen_xxxx_small"
+        android:layout_marginBottom="@dimen/dimen_small"
+        app:cardCornerRadius="@dimen/dimen_xx_small"
         app:cardElevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,17 +39,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_card_gradient2"
-                    android:padding="12dp"
+                    android:padding="@dimen/dimen_small"
                     android:text="@{viewModel.position}"
-                    android:textColor="@color/color_white"
-                    android:textSize="36sp"></TextView>
+                    android:textColor="@color/color_leader_numbers"
+                    android:textSize="@dimen/size_text_xxxx_large" />
 
                 <ImageView
                     imageUrl="@{viewModel.imageUrl}"
-                    android:layout_width="36sp"
-                    android:layout_height="36sp"
+                    android:layout_width="@dimen/dimen_xxxx_large"
+                    android:layout_height="@dimen/dimen_xxxx_large"
                     android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="@dimen/dimen_small"
                     android:src="@drawable/arsenal">
 
                 </ImageView>
@@ -58,10 +58,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="@dimen/dimen_xxxx_small"
                     android:text="@{viewModel.name}"
-                    android:textColor="@color/color_black"
-                    android:textSize="18sp">
+                    android:textColor="@color/color_text_title"
+                    android:textSize="@dimen/size_text_large">
 
                 </TextView>
             </LinearLayout>
@@ -69,7 +69,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_margin="@dimen/size_text_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -79,8 +79,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7W / 2L"
-                    android:textColor="@color/color_gray"
-                    android:textSize="16sp"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/size_text_small"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -91,8 +91,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23 Point"
-                    android:textColor="@color/color_gray"
-                    android:textSize="16sp"
+                    android:textColor="@color/color_text_subtitle"
+                    android:textSize="@dimen/dimen_small"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2">

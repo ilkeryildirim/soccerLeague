@@ -16,7 +16,7 @@ import com.ilkeryildirim.soccerleague.databinding.FragmentFixtureBinding
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.FixtureFragmentUIState.*
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.PagerFragment
 import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerAdapter
-import com.ilkeryildirim.soccerleague.ui.screens.home.items.ViewPagerTransformer
+import com.ilkeryildirim.soccerleague.ui.screens.fixture.pagerFragment.ViewPagerTransformer
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

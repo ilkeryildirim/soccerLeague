@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SoccerLeague</string>
+    <string name="string_discover">Keşfet</string>
+    <string name="string_discover_description">favori takımlarını keşfet</string>
+    <string name="string_leaderboard">Liderlik Tablosu</string>
+    <string name="string_today_match">Günün Maçları</string>
+    <string name="string_fixture">Fikstür</string>
+    <string name="string_fixture_description">maçlar ve tarihler</string>
+    <string name="string_versus">karşı</string>
+    <string name="string_teams">Takımlar</string>
+    <string name="string_score_table">Skor Tablosu</string>
+    <string name="string_see_all">Hepsini Gör</string>
+</resources>

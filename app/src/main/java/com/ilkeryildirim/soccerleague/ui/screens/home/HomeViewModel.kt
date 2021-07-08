@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ilkeryildirim.soccerleague.R
 import com.ilkeryildirim.soccerleague.data.local.SoccerLeagueDao
 import com.ilkeryildirim.soccerleague.data.model.fixture.Fixture
+import com.ilkeryildirim.soccerleague.data.model.team.Team
 import com.ilkeryildirim.soccerleague.data.model.team.Teams
 import com.ilkeryildirim.soccerleague.data.remote.api.ApiResult
 import com.ilkeryildirim.soccerleague.data.remote.repository.HomeDataRepository
@@ -20,8 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-        private val homeDataRepository: HomeDataRepository,
-        private val soccerLeagueDao: SoccerLeagueDao
+    private val homeDataRepository: HomeDataRepository,
+    private val soccerLeagueDao: SoccerLeagueDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeFragmentUIState>(HomeFragmentUIState.Initial)
